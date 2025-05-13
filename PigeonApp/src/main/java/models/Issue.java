@@ -19,8 +19,8 @@ public class Issue {
     private String issueId;
     private String issueTitle;
     private String issueDescription;
-    private double avarageEstTime; //medelvärde av allas estimation
+    private double avarageEstTime; // medelvärde av allas estimation
     private double actualTime;
+    private boolean activeIssue;
     private List<EstimatedTime> estimatedTimeList = new ArrayList<>();
-    
 }

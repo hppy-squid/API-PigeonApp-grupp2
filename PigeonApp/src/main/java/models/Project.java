@@ -13,12 +13,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document (collection = "projects")
+@Document(collection = "projects")
 public class Project {
     @Id
     private String projectId;
     private String title;
+    private boolean activeProject;
     private List<Member> members = new ArrayList<>();
     private List<Issue> issues = new ArrayList<>();
-    
+
 }
