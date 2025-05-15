@@ -19,6 +19,6 @@ public class Issue {
     private String issueDescription;
     private int avarageEstTime; // medelvärde av allas estimation
     private int actualTime;
-    private IssueStatus issueStatus;
+    private IssueStatus issueStatus; // skiftar statusläge ACTIVE, INACTIVE & DONE
     private List<Member> members;
 }
