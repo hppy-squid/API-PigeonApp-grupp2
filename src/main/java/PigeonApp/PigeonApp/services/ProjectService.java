@@ -19,30 +19,21 @@ public class ProjectService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public List<Project> getAllActiveProjects(Project project) {
-        if (project.isActiveProject()) {
-            projectRepository.findAll();
-            List<Project> allActiveProjects = projectRepository.findAll();
+    // Hämta alla aktiva projekt
+    public List<Project> getAllActiveProjects() {
+        List<Project> allActiveProjects = projectRepository.findByActiveProject(true);
+        System.out.println("Active Projects: " + allActiveProjects);
+        return allActiveProjects;
 
-            System.out.println("Active Projects: " + allActiveProjects);
-
-            return allActiveProjects;
-        } else {
-            return null;
-        }
     }
 
-    public List<Project> getAllFinishedProjects(Project project) {
-        if (!project.isActiveProject()) {
-            projectRepository.findAll();
-            List<Project> allFinishedProjects = projectRepository.findAll();
+    // Hämta alla avslutade projekt
+    public List<Project> getAllFinishedProjects() {
 
-            System.out.println("Active Projects: " + allFinishedProjects);
+        List<Project> allFinishedProjects = projectRepository.findByActiveProject(false);
+        System.out.println("Active Projects: " + allFinishedProjects);
+        return allFinishedProjects;
 
-            return allFinishedProjects;
-        } else {
-            return null;
-        }
     }
 
     public Project createProject(Project project) {
