@@ -1,6 +1,10 @@
 package PigeonApp.PigeonApp.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,17 +21,29 @@ public class IssueController {
     private IssueService issueService;
 
     // skapa en issue
-    @PostMapping("/newIssue")
-    public Issue createIssue(@RequestBody Issue issue) {
-        return issueService.createIssue(issue);
+    @PostMapping("/newIssue/{projectId}")
+    public Issue createIssue(@RequestBody Issue issue, @PathVariable String projectId) {
+        return issueService.createIssue(issue, projectId);
     }
+
     // // uppdatera specifikt issue
     // @PatchMapping("/setEstimatedTime")
     // //
-    // // hämta alla inaktiva issues
-    // @GetMapping("/inactiveIssues")
+    // hämta alla inaktiva issues
+    @GetMapping("/inactiveIssues")
+    public List<Issue> getInactiveIssues() {
+        return issueService.getInactiveIssues();
+    }
+
     // // hämta alla aktiva issues
-    // @GetMapping("/activeIssues")
+    @GetMapping("/activeIssues")
+    public List<Issue> getActiveIssues() {
+        return issueService.getActiveIssues();
+    }
+
     // // hämta alla fädiga issues
-    // @GetMapping("/finishedIssues")
+    @GetMapping("/finishedIssues")
+    public List<Issue> getFinishedIssues() {
+        return issueService.getFinishedIssues();
+    }
 }

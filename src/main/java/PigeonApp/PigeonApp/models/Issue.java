@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Issue {
     @Id
     private String issueId;
-    private String projectId; // den hämtar projektet
+    private String projectId;
     private String issueTitle;
     private String issueDescription;
     private int avarageEstTime; // medelvärde av allas estimation
