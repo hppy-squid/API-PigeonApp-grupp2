@@ -1,6 +1,5 @@
-package models;
+package PigeonApp.PigeonApp.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -19,7 +18,7 @@ public class Project {
     private String projectId;
     private String title;
     private boolean activeProject;
-    private List<Member> members = new ArrayList<>();
-    private List<Issue> issues = new ArrayList<>();
+    private List<Member> members;
+    private List<Issue> issues;
 
 }
