@@ -14,10 +14,11 @@ import lombok.NoArgsConstructor;
 public class Issue {
     @Id
     private String issueId;
+    private String projectId;
     private String issueTitle;
     private String issueDescription;
-    private double avarageEstTime; // medelvärde av allas estimation
-    private double actualTime;
-    private boolean activeIssue;
-    private List<EstimatedTime> estimatedTimeList;
+    private int avarageEstTime; // medelvärde av allas estimation
+    private int actualTime;
+    private IssueStatus issueStatus; // skiftar statusläge ACTIVE, INACTIVE & DONE
+    private List<Member> members;
 }
