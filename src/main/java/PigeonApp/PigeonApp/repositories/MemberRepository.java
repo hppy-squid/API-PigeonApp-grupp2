@@ -1,8 +1,8 @@
-package repositories;
+package PigeonApp.PigeonApp.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import models.Member;
+import PigeonApp.PigeonApp.models.Member;
 
 public interface MemberRepository extends MongoRepository<Member, String> {
 

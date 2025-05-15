@@ -1,4 +1,4 @@
-package models;
+package PigeonApp.PigeonApp.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstimatedTime {
-    private String id; //Hanterar member id
+    private String id; // Hanterar member id
     private double timeEstimate;
-    
+
 }

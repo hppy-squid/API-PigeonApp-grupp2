@@ -1,9 +1,9 @@
-package models;
+package PigeonApp.PigeonApp.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,5 +19,5 @@ public class Issue {
     private double avarageEstTime; // medelvärde av allas estimation
     private double actualTime;
     private boolean activeIssue;
-    private List<EstimatedTime> estimatedTimeList = new ArrayList<>();
+    private List<EstimatedTime> estimatedTimeList;
 }
