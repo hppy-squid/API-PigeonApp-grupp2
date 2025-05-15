@@ -22,15 +22,15 @@ public class ProjectController {
     private ProjectService projectService;
 
     @GetMapping("/activeProjects")
-    public List<Project> getAllActiveProjects(Project project) {
-        System.out.println("Getting all active projects" + project);
-        return projectService.getAllActiveProjects(project);
+    public List<Project> getAllActiveProjects() {
+        System.out.println("Getting all active projects");
+        return projectService.getAllActiveProjects();
     }
 
     @GetMapping("/finishedProjects")
-    public List<Project> getAllFinishedProjects(Project project) {
-        System.out.println("Getting all finished projects" + project);
-        return projectService.getAllFinishedProjects(project);
+    public List<Project> getAllFinishedProjects() {
+        System.out.println("Getting all finished projects");
+        return projectService.getAllFinishedProjects();
     }
 
     @PostMapping("/newProject")
