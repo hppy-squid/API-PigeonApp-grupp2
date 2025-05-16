@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import PigeonApp.PigeonApp.models.Issue;
 import PigeonApp.PigeonApp.models.IssueStatus;
 import PigeonApp.PigeonApp.models.Project;
+import PigeonApp.PigeonApp.repositories.EstimatedTimeRepository;
 import PigeonApp.PigeonApp.repositories.IssueRepository;
 import PigeonApp.PigeonApp.repositories.MemberRepository;
 import PigeonApp.PigeonApp.repositories.ProjectRepository;
@@ -21,7 +22,7 @@ public class IssueService {
     private IssueRepository issueRepository;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private EstimatedTimeRepository estimatedTimeRepository;
 
     // skapa en issue
     public Issue createIssue(Issue issue, String projectId) {
