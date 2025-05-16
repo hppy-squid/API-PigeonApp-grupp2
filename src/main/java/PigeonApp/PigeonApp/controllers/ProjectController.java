@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import PigeonApp.PigeonApp.models.Member;
 import PigeonApp.PigeonApp.models.Project;
 import PigeonApp.PigeonApp.services.ProjectService;
 
@@ -35,7 +36,6 @@ public class ProjectController {
 
     @PostMapping("/newProject")
     public Project createProject(@RequestBody Project project) {
-
         return projectService.createProject(project);
     }
 
