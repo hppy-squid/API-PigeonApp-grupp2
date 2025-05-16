@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Member {
     @Id
     private String memberId;
+    private String projectId; //Kopplar till projekt
     private String memberName;
     private int timeEstimate;
 
