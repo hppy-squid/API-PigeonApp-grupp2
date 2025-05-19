@@ -30,5 +30,10 @@ public class EstimatedTimeController {
     public List<EstimatedTime> updateEstTime(@RequestBody Issue issue, @PathVariable String issueId){
         return issueService.updateEstTime(issue, issueId);
     }
+
+    @PatchMapping("/actualTime/{issueId}") 
+        public Issue actualTime(@RequestBody Issue issue, @PathVariable String issueId){ 
+        return issueService.actualTime(issue, issueId);
+    }
     
 }

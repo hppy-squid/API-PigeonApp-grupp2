@@ -20,16 +20,12 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
-    // skapa en issue
     @PostMapping("/newIssue/{projectId}")
     public Issue createIssue(@RequestBody Issue issue, @PathVariable String projectId) {
         return issueService.createIssue(issue, projectId);
     }
 
-    // // uppdatera specifikt issue
-    // @PatchMapping("/setEstimatedTime")
-    // //
-    // hämta alla inaktiva issues
+  
     @GetMapping("/inactiveIssues")
     public List<Issue> getInactiveIssues() {
         return issueService.getInactiveIssues();

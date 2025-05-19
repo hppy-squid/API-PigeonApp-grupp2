@@ -2,8 +2,6 @@ package PigeonApp.PigeonApp.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +9,9 @@ import org.springframework.stereotype.Service;
 import PigeonApp.PigeonApp.models.EstimatedTime;
 import PigeonApp.PigeonApp.models.Issue;
 import PigeonApp.PigeonApp.models.IssueStatus;
-import PigeonApp.PigeonApp.models.Member;
 import PigeonApp.PigeonApp.models.Project;
 import PigeonApp.PigeonApp.repositories.EstimatedTimeRepository;
 import PigeonApp.PigeonApp.repositories.IssueRepository;
-import PigeonApp.PigeonApp.repositories.MemberRepository;
 import PigeonApp.PigeonApp.repositories.ProjectRepository;
 
 @Service
@@ -28,9 +24,7 @@ public class IssueService {
 
     @Autowired
     private EstimatedTimeRepository estimatedTimeRepository;
-
-    @Autowired
-    private MemberRepository memberRepository;
+  
 
     // skapa en issue
     public Issue createIssue(Issue issue, String projectId) {
@@ -106,6 +100,20 @@ public List<EstimatedTime> updateEstTime(Issue issue, String issueId) {
     }
 
     return updatedEstimates;
+}
+
+public Issue actualTime(Issue issue, String issueId) {
+
+     Issue existingIssue = issueRepository.findById(issueId)
+            .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
+
+    existingIssue.setActualTime(issue.getActualTime());
+
+    issueRepository.save(existingIssue);
+
+            
+    return existingIssue;
+   
 }
 
 }
