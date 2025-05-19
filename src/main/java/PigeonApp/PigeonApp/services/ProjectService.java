@@ -65,4 +65,11 @@ public class ProjectService {
         return getMembersByProjectId;
     }
 
+    public Project getProjectById(String projectId) {
+        Project getProjectById = projectRepository.findById(projectId).orElse(null);
+        return getProjectById;
+
+     
+    }
+
 }
