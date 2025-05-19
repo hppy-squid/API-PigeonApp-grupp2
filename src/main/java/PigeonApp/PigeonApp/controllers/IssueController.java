@@ -49,4 +49,10 @@ public class IssueController {
     public List<Issue> getFinishedIssues() {
         return issueService.getFinishedIssues();
     }
+
+    // // hämta alla issues för ett projekt
+    @GetMapping("inactiveIssues/project/{projectId}")
+    public List<Issue> getInactiveIssuesByProject(@PathVariable String projectId) {
+        return issueService.getInactiveIssuesByProject(projectId);
+    }
 }
