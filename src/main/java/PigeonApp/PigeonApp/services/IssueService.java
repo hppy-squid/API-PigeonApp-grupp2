@@ -116,4 +116,10 @@ public Issue actualTime(Issue issue, String issueId) {
    
 }
 
+public Issue getIssueById(String issueId) {
+   Issue getIssueById = issueRepository.findById(issueId).orElse(null);
+    return getIssueById;
+   
+}
+
 }

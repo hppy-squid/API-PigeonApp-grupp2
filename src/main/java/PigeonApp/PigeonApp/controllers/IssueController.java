@@ -27,6 +27,12 @@ public class IssueController {
         return issueService.createIssue(issue, projectId);
     }
 
+    @GetMapping("/{issueId}")
+        public Issue getIssueById(@PathVariable String issueId) {
+            return issueService.getIssueById(issueId);
+        }
+    
+
     @GetMapping("/inactiveIssues")
     public List<Issue> getInactiveIssues() {
         return issueService.getInactiveIssues();
