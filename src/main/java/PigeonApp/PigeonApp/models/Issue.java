@@ -1,5 +1,7 @@
 package PigeonApp.PigeonApp.models;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -20,5 +22,5 @@ public class Issue {
     private int avarageEstTime; // medelvärde av allas estimation
     private int actualTime;
     private IssueStatus issueStatus; // skiftar statusläge ACTIVE, INACTIVE & DONE
-    private List<Member> members;
+    private List<EstimatedTime> estimatedTimes = new ArrayList<>();
 }
