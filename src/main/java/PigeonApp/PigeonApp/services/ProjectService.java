@@ -38,11 +38,10 @@ public class ProjectService {
 
     public Project createProject(Project project) {
 
-
         Project savProject = projectRepository.save(project);
         List<Member> members = project.getMembers();
 
-        for(Member m : members){
+        for (Member m : members) {
             m.setProjectId(project.getProjectId());
         }
         // sparar medlemmarna i databasen
@@ -60,9 +59,15 @@ public class ProjectService {
         return getAllMembers;
     }
 
-    public List<Member> getMembersByProjectId(String projectId){
+    public List<Member> getMembersByProjectId(String projectId) {
         List<Member> getMembersByProjectId = memberRepository.findByProjectId(projectId);
         return getMembersByProjectId;
+    }
+
+    public Project getProjectById(String projectId) {
+        Project getProjectById = projectRepository.findById(projectId).orElse(null);
+        return getProjectById;
+
     }
 
 }

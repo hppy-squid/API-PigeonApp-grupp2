@@ -3,20 +3,20 @@ package PigeonApp.PigeonApp.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import PigeonApp.PigeonApp.models.Member;
 import PigeonApp.PigeonApp.models.Project;
 import PigeonApp.PigeonApp.services.ProjectService;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 @RestController
 @RequestMapping("/api/projects")
+@CrossOrigin(origins = "*")
 public class ProjectController {
 
     @Autowired
@@ -26,6 +26,11 @@ public class ProjectController {
     public List<Project> getAllActiveProjects() {
         System.out.println("Getting all active projects");
         return projectService.getAllActiveProjects();
+    }
+
+    @GetMapping("/{projectId}")
+    public Project getProjectById(@PathVariable String projectId) {
+        return projectService.getProjectById(projectId);
     }
 
     @GetMapping("/finishedProjects")

@@ -3,6 +3,7 @@ package PigeonApp.PigeonApp.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,8 @@ import PigeonApp.PigeonApp.services.IssueService;
 
 @RestController
 @RequestMapping("/api/issues")
+@CrossOrigin(origins = "*")
 public class IssueController {
-
     @Autowired
     private IssueService issueService;
 
@@ -25,7 +26,11 @@ public class IssueController {
         return issueService.createIssue(issue, projectId);
     }
 
-  
+    @GetMapping("/{issueId}")
+    public Issue getIssueById(@PathVariable String issueId) {
+        return issueService.getIssueById(issueId);
+    }
+
     @GetMapping("/inactiveIssues")
     public List<Issue> getInactiveIssues() {
         return issueService.getInactiveIssues();
