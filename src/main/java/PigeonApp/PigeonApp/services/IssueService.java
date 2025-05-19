@@ -1,12 +1,17 @@
 package PigeonApp.PigeonApp.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import PigeonApp.PigeonApp.models.EstimatedTime;
 import PigeonApp.PigeonApp.models.Issue;
 import PigeonApp.PigeonApp.models.IssueStatus;
+import PigeonApp.PigeonApp.models.Member;
 import PigeonApp.PigeonApp.models.Project;
 import PigeonApp.PigeonApp.repositories.EstimatedTimeRepository;
 import PigeonApp.PigeonApp.repositories.IssueRepository;
@@ -23,6 +28,9 @@ public class IssueService {
 
     @Autowired
     private EstimatedTimeRepository estimatedTimeRepository;
+
+    @Autowired
+    private MemberRepository memberRepository;
 
     // skapa en issue
     public Issue createIssue(Issue issue, String projectId) {
@@ -56,4 +64,48 @@ public class IssueService {
     public List<Issue> getFinishedIssues() {
         return issueRepository.findByIssueStatus(IssueStatus.DONE);
     }
+
+    
+ 
+public List<EstimatedTime> updateEstTime(Issue issue, String issueId) {
+
+    // Hämta befintligt issue
+    Issue existingIssue = issueRepository.findById(issueId)
+            .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
+
+    List<EstimatedTime> updatedEstimates = new ArrayList<>();
+
+    // Hämta inkommande estimerade tider från RequestBody
+    List<EstimatedTime> incomingEstimates = issue.getEstimatedTimes();
+
+    if (incomingEstimates != null && !incomingEstimates.isEmpty()) {
+        for (EstimatedTime estimate : incomingEstimates) {
+            // Skapa en ny EstimatedTime-objekt och sätt värdena
+            EstimatedTime estimatedTime = new EstimatedTime();
+            estimatedTime.setIssueId(issueId);
+            estimatedTime.setTimeEstimate(estimate.getTimeEstimate());
+
+            // Spara till databasen
+            estimatedTimeRepository.save(estimatedTime);
+            updatedEstimates.add(estimatedTime);
+        }
+
+        // Lägg till de uppdaterade estimerade tiderna i issuelistan
+        existingIssue.setEstimatedTimes(updatedEstimates);
+
+        // Uppdatera medelvärdet av uppskattade tider
+        int averageTime = updatedEstimates.stream()
+                .mapToInt(EstimatedTime::getTimeEstimate)
+                .filter(time -> time > 0)  // Filtrera bort 0-värden
+                .sum() / Math.max(updatedEstimates.size(), 1);  // Undvik division med 0
+
+        existingIssue.setAvarageEstTime(averageTime);
+        issueRepository.save(existingIssue);
+    } else {
+        throw new RuntimeException("Ingen uppskattad tid angiven");
+    }
+
+    return updatedEstimates;
+}
+
 }
