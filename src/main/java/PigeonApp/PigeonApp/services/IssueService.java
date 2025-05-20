@@ -28,70 +28,62 @@ public class IssueService {
 
     // skapa en issue
     public Issue createIssue(Issue issue, String projectId) {
-        // Kontrollera att projektet finns
+        
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Projektet finns inte"));
         issue.setProjectId(projectId);
-        // Spara issue först (så den får ett ID)
+       
         Issue savedIssue = issueRepository.save(issue);
-
-        // Lägg till issue i projektets lista och spara projektet
+      
         project.getIssues().add(savedIssue);
         projectRepository.save(project);
 
         return savedIssue;
     }
 
-    // uppdatera en issue "by ID"
-
     // hämta alla inaktiva issues
-    public List<Issue> getInactiveIssues() {
-        return issueRepository.findByIssueStatus(IssueStatus.INACTIVE);
+    public List<Issue> getInactiveIssues(String projectId) {
+    return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.INACTIVE);
     }
-
+   
     // hämta alla aktiva issues
-    public List<Issue> getActiveIssues() {
-        return issueRepository.findByIssueStatus(IssueStatus.ACTIVE);
+    public List<Issue> getActiveIssues(String projectId) {
+        return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.ACTIVE);
     }
 
     // hämta alla fädiga issues
-    public List<Issue> getFinishedIssues() {
-        return issueRepository.findByIssueStatus(IssueStatus.DONE);
+    public List<Issue> getFinishedIssues(String projectId) {
+        return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.DONE);
     }
 
     
- 
-public List<EstimatedTime> updateEstTime(Issue issue, String issueId) {
+    // Uppdatera issues med estimerad tid
+    public List<EstimatedTime> updateEstTime(Issue issue, String issueId) {
 
-    // Hämta befintligt issue
-    Issue existingIssue = issueRepository.findById(issueId)
+        Issue existingIssue = issueRepository.findById(issueId)
             .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
 
-    List<EstimatedTime> updatedEstimates = new ArrayList<>();
+        List<EstimatedTime> updatedEstimates = new ArrayList<>();
 
-    // Hämta inkommande estimerade tider från RequestBody
-    List<EstimatedTime> incomingEstimates = issue.getEstimatedTimes();
+        List<EstimatedTime> incomingEstimates = issue.getEstimatedTimes();
 
-    if (incomingEstimates != null && !incomingEstimates.isEmpty()) {
-        for (EstimatedTime estimate : incomingEstimates) {
-            // Skapa en ny EstimatedTime-objekt och sätt värdena
-            EstimatedTime estimatedTime = new EstimatedTime();
-            estimatedTime.setIssueId(issueId);
-            estimatedTime.setTimeEstimate(estimate.getTimeEstimate());
+        if (incomingEstimates != null && !incomingEstimates.isEmpty()) {
+            for (EstimatedTime estimate : incomingEstimates) {
+                EstimatedTime estimatedTime = new EstimatedTime();
+                estimatedTime.setIssueId(issueId);
+                estimatedTime.setTimeEstimate(estimate.getTimeEstimate());
 
-            // Spara till databasen
-            estimatedTimeRepository.save(estimatedTime);
-            updatedEstimates.add(estimatedTime);
-        }
+                estimatedTimeRepository.save(estimatedTime);
+                updatedEstimates.add(estimatedTime);
+            }
 
-        // Lägg till de uppdaterade estimerade tiderna i issuelistan
         existingIssue.setEstimatedTimes(updatedEstimates);
 
         // Uppdatera medelvärdet av uppskattade tider
         int averageTime = updatedEstimates.stream()
                 .mapToInt(EstimatedTime::getTimeEstimate)
-                .filter(time -> time > 0)  // Filtrera bort 0-värden
-                .sum() / Math.max(updatedEstimates.size(), 1);  // Undvik division med 0
+                .filter(time -> time > 0)  
+                .sum() / Math.max(updatedEstimates.size(), 1);  
 
         existingIssue.setAvarageEstTime(averageTime);
         issueRepository.save(existingIssue);
@@ -100,9 +92,10 @@ public List<EstimatedTime> updateEstTime(Issue issue, String issueId) {
     }
 
     return updatedEstimates;
-}
+    }
 
-public Issue actualTime(Issue issue, String issueId) {
+    // uppdatera issues med den faktiska tiden
+    public Issue actualTime(Issue issue, String issueId) {
 
      Issue existingIssue = issueRepository.findById(issueId)
             .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
@@ -114,16 +107,15 @@ public Issue actualTime(Issue issue, String issueId) {
             
     return existingIssue;
    
-}
+    }
 
-public Issue getIssueById(String issueId) {
-   Issue getIssueById = issueRepository.findById(issueId).orElse(null);
+    // hämta specifika issues 
+    public Issue getIssueById(String issueId) {
+
+        Issue getIssueById = issueRepository.findById(issueId).orElse(null);
+        
     return getIssueById;
    
-}
-
-public List<Issue> getInactiveIssuesByProject(String projectId) {
-    return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.INACTIVE);
-}
+    }
 
 }

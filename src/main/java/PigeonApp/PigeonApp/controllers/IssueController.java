@@ -22,37 +22,33 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
+    // skapa nytt issue till projekt
     @PostMapping("/newIssue/{projectId}")
     public Issue createIssue(@RequestBody Issue issue, @PathVariable String projectId) {
         return issueService.createIssue(issue, projectId);
     }
 
+    // hämta specifikt issue
     @GetMapping("/{issueId}")
         public Issue getIssueById(@PathVariable String issueId) {
             return issueService.getIssueById(issueId);
         }
-    
 
-    @GetMapping("/inactiveIssues")
-    public List<Issue> getInactiveIssues() {
-        return issueService.getInactiveIssues();
+    // hämta alla aktiva issues för ett projekt
+    @GetMapping("/activeIssues/{projectId}")
+    public List<Issue> getActiveIssues(@PathVariable String projectId) {
+        return issueService.getActiveIssues(projectId);
     }
 
-    // // hämta alla aktiva issues
-    @GetMapping("/activeIssues")
-    public List<Issue> getActiveIssues() {
-        return issueService.getActiveIssues();
+    // hämta alla fädiga issues för ett projekt
+    @GetMapping("/finishedIssues/{projectId}")
+    public List<Issue> getFinishedIssues(@PathVariable String projectId) {
+        return issueService.getFinishedIssues(projectId);
     }
 
-    // // hämta alla fädiga issues
-    @GetMapping("/finishedIssues")
-    public List<Issue> getFinishedIssues() {
-        return issueService.getFinishedIssues();
-    }
-
-    // // hämta alla issues för ett projekt
-    @GetMapping("inactiveIssues/project/{projectId}")
-    public List<Issue> getInactiveIssuesByProject(@PathVariable String projectId) {
-        return issueService.getInactiveIssuesByProject(projectId);
+     // hämta alla inaktiva issues för ett projekt
+    @GetMapping("inactiveIssues/{projectId}")
+    public List<Issue> getInactiveIssues(@PathVariable String projectId) {
+        return issueService.getInactiveIssues(projectId);
     }
 }

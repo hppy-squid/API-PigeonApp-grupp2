@@ -21,9 +21,18 @@ public class ProjectService {
 
     // Hämta alla aktiva projekt
     public List<Project> getAllActiveProjects() {
+
         List<Project> allActiveProjects = projectRepository.findByActiveProject(true);
         System.out.println("Active Projects: " + allActiveProjects);
         return allActiveProjects;
+
+    }
+    
+    // Hämta ett specifikt projekt
+    public Project getProjectById(String projectId) {
+        
+        Project getProjectById = projectRepository.findById(projectId).orElse(null);
+        return getProjectById;
 
     }
 
@@ -36,8 +45,8 @@ public class ProjectService {
 
     }
 
+    // Skapa ett nytt projekt
     public Project createProject(Project project) {
-
 
         Project savProject = projectRepository.save(project);
         List<Member> members = project.getMembers();
@@ -45,7 +54,6 @@ public class ProjectService {
         for(Member m : members){
             m.setProjectId(project.getProjectId());
         }
-        // sparar medlemmarna i databasen
         List<Member> saveMembers = memberRepository.saveAll(project.getMembers());
         project.setMembers(saveMembers);
 
@@ -55,21 +63,18 @@ public class ProjectService {
 
     }
 
+    // Hämta alla medlemmar
     public List<Member> getAllMembers() {
+
         List<Member> getAllMembers = memberRepository.findAll();
         return getAllMembers;
     }
 
+    // Hämta alla medlemmar i ett specifikt projekt
     public List<Member> getMembersByProjectId(String projectId){
+
         List<Member> getMembersByProjectId = memberRepository.findByProjectId(projectId);
         return getMembersByProjectId;
-    }
-
-    public Project getProjectById(String projectId) {
-        Project getProjectById = projectRepository.findById(projectId).orElse(null);
-        return getProjectById;
-
-     
     }
 
 }
