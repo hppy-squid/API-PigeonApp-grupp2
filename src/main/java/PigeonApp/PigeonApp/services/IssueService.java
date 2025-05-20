@@ -32,6 +32,7 @@ public class IssueService {
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Projektet finns inte"));
         issue.setProjectId(projectId);
+        issue.setIssueStatus(IssueStatus.INACTIVE);
        
         Issue savedIssue = issueRepository.save(issue);
       
