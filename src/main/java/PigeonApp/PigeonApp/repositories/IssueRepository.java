@@ -9,4 +9,5 @@ import PigeonApp.PigeonApp.models.IssueStatus;
 
 public interface IssueRepository extends MongoRepository<Issue, String> {
     List<Issue> findByIssueStatus(IssueStatus issueStatus);
+    List<Issue> findByProjectIdAndIssueStatus(String projectId, IssueStatus issueStatus);
 }

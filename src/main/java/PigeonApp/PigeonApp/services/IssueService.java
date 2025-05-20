@@ -122,4 +122,8 @@ public Issue getIssueById(String issueId) {
    
 }
 
+public List<Issue> getInactiveIssuesByProject(String projectId) {
+    return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.INACTIVE);
+}
+
 }
