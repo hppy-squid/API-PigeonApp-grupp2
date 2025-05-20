@@ -1,6 +1,5 @@
 package PigeonApp.PigeonApp.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,13 @@ public class MemberController {
     @Autowired
     private ProjectService projectService;
 
+    // hämta alla medlemmar
     @GetMapping("/getAllMembers")
     public List<Member> getAllmembers() {
         return projectService.getAllMembers();
     }
 
+    // hämta alla medlemmar i ett specifikt projekt
     @GetMapping("/getMembersByProjectId/{projectId}")
     public List<Member> getMembersByProjectId(@PathVariable String projectId) {
         return projectService.getMembersByProjectId(projectId);
