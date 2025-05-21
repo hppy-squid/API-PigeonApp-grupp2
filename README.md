@@ -67,6 +67,9 @@ PigeonApp är APIet till ett grupprojekt byggt med Spring Boot och MongoDB för 
 - `GET /api/issues/inactiveIssues` – Hämta inaktiva issues
 - `GET /api/issues/activeIssues` – Hämta aktiva issues
 - `GET /api/issues/finishedIssues` – Hämta klara issues
+- `GET /api/issues/activeIssues/{projectId}` - Hämtar aktiva issues för ett projekt
+- `GET /api/issues/inactiveIssues/{projectId}` - Hämtar inaktiva issues för ett projekt
+- `GET /api/issues/finishedIssues/{projectId}`- Hämtar färdiga issues för ett projekt
 
   ### Tidsestimering & Bokföring
 
