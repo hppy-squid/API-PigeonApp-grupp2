@@ -77,4 +77,13 @@ public class ProjectService {
         return getMembersByProjectId;
     }
 
+    //Hämtar alla projekt
+        public List<Project> getAllProjects() {
+
+        List<Project> getAllProjects = projectRepository.findAll();
+        System.out.println("Alla tillagda projekter: " + getAllProjects);
+        return getAllProjects;
+
+    }
+
 }
