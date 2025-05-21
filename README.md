@@ -38,6 +38,8 @@ PigeonApp är APIet till ett grupprojekt byggt med Spring Boot och MongoDB för 
    cd API-PigeonApp-grupp2
    ```
 
+   Välj sen branch opponering
+
 2. Skapa en `.env`-fil i projektroten och lägg till din MongoDB URI:
 
    ```
@@ -65,6 +67,12 @@ PigeonApp är APIet till ett grupprojekt byggt med Spring Boot och MongoDB för 
 - `GET /api/issues/inactiveIssues` – Hämta inaktiva issues
 - `GET /api/issues/activeIssues` – Hämta aktiva issues
 - `GET /api/issues/finishedIssues` – Hämta klara issues
+
+  ### Tidsestimering & Bokföring
+
+- `PATCH /api/estTime/updateEstTime/{issueId}` – Uppdatera uppskattad tid för ett issue
+- `PATCH /api/estTime/actualTime/{issueId}` – Uppdatera faktisk tid för ett issue
+
 
 ## Miljövariabler
 
