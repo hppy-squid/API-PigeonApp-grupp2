@@ -48,6 +48,10 @@ PigeonApp är APIet till ett grupprojekt byggt med Spring Boot och MongoDB för 
 
 3. Starta applikationen:
 
+   ```sh
+   mvn spring-boot:run
+   ```
+
 ### API Endpoints
 
 #### Projekt
