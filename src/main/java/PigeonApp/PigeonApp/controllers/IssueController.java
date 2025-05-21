@@ -47,7 +47,7 @@ public class IssueController {
     }
 
      // hämta alla inaktiva issues för ett projekt
-    @GetMapping("inactiveIssues/{projectId}")
+    @GetMapping("/inactiveIssues/{projectId}")
     public List<Issue> getInactiveIssues(@PathVariable String projectId) {
         return issueService.getInactiveIssues(projectId);
     }
