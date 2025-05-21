@@ -49,4 +49,10 @@ public class ProjectController {
         return projectService.createProject(project);
     }
 
+    //Hämtar alla projekt
+    @GetMapping("/allProjects")
+    public List<Project> getAllProjects() {
+        return projectService.getAllProjects();
+    }
+
 }
