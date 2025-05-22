@@ -71,6 +71,7 @@ public class IssueService {
                 EstimatedTime estimatedTime = new EstimatedTime();
                 estimatedTime.setIssueId(issueId);
                 estimatedTime.setTimeEstimate(estimate.getTimeEstimate());
+                estimatedTime.setMemberId(estimate.getMemberId());
 
                 estimatedTimeRepository.save(estimatedTime);
                 updatedEstimates.add(estimatedTime);
