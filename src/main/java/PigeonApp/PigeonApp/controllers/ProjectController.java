@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,10 +50,16 @@ public class ProjectController {
         return projectService.createProject(project);
     }
 
-    //Hämtar alla projekt
+    // Hämtar alla projekt
     @GetMapping("/allProjects")
     public List<Project> getAllProjects() {
         return projectService.getAllProjects();
+    }
+
+    //
+    @PatchMapping("/updateProjectStatus/{projectId}")
+    public Project updateProjectToFinshed(@PathVariable String projectId) {
+        return projectService.updateProjectToFinshed(projectId);
     }
 
 }
