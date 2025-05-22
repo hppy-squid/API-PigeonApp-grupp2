@@ -14,7 +14,7 @@ import PigeonApp.PigeonApp.services.ProjectService;
 
 @RestController
 @RequestMapping("/api/members")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://thepigeonapp.netlify.app/")
 public class MemberController {
 
     @Autowired

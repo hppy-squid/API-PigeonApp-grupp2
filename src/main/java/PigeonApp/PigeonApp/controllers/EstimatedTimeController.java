@@ -17,7 +17,7 @@ import PigeonApp.PigeonApp.services.IssueService;
 
 @RestController
 @RequestMapping("/api/estTime")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://thepigeonapp.netlify.app/")
 public class EstimatedTimeController {
 
     @Autowired

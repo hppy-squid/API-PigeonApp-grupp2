@@ -17,7 +17,7 @@ import PigeonApp.PigeonApp.services.IssueService;
 
 @RestController
 @RequestMapping("/api/issues")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "https://thepigeonapp.netlify.app/")
 public class IssueController {
 
     @Autowired
