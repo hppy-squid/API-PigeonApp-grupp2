@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,9 +31,9 @@ public class IssueController {
 
     // hämta specifikt issue
     @GetMapping("/{issueId}")
-        public Issue getIssueById(@PathVariable String issueId) {
-            return issueService.getIssueById(issueId);
-        }
+    public Issue getIssueById(@PathVariable String issueId) {
+        return issueService.getIssueById(issueId);
+    }
 
     // hämta alla aktiva issues för ett projekt
     @GetMapping("/activeIssues/{projectId}")
@@ -46,9 +47,14 @@ public class IssueController {
         return issueService.getFinishedIssues(projectId);
     }
 
-     // hämta alla inaktiva issues för ett projekt
+    // hämta alla inaktiva issues för ett projekt
     @GetMapping("/inactiveIssues/{projectId}")
     public List<Issue> getInactiveIssues(@PathVariable String projectId) {
         return issueService.getInactiveIssues(projectId);
+    }
+
+    @PatchMapping("/updateIssueStatus/{issueId}")
+    public Issue updateIssueStatus(@PathVariable String issueId) {
+        return issueService.updateIssueStatus(issueId);
     }
 }

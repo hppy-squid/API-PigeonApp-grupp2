@@ -24,18 +24,17 @@ public class IssueService {
 
     @Autowired
     private EstimatedTimeRepository estimatedTimeRepository;
-  
 
     // skapa en issue
     public Issue createIssue(Issue issue, String projectId) {
-        
+
         Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Projektet finns inte"));
         issue.setProjectId(projectId);
         issue.setIssueStatus(IssueStatus.INACTIVE);
-       
+
         Issue savedIssue = issueRepository.save(issue);
-      
+
         project.getIssues().add(savedIssue);
         projectRepository.save(project);
 
@@ -44,9 +43,9 @@ public class IssueService {
 
     // hämta alla inaktiva issues
     public List<Issue> getInactiveIssues(String projectId) {
-    return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.INACTIVE);
+        return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.INACTIVE);
     }
-   
+
     // hämta alla aktiva issues
     public List<Issue> getActiveIssues(String projectId) {
         return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.ACTIVE);
@@ -57,12 +56,11 @@ public class IssueService {
         return issueRepository.findByProjectIdAndIssueStatus(projectId, IssueStatus.DONE);
     }
 
-    
     // Uppdatera issues med estimerad tid
     public List<EstimatedTime> updateEstTime(Issue issue, String issueId) {
 
         Issue existingIssue = issueRepository.findById(issueId)
-            .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
+                .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
 
         List<EstimatedTime> updatedEstimates = new ArrayList<>();
 
@@ -78,45 +76,58 @@ public class IssueService {
                 updatedEstimates.add(estimatedTime);
             }
 
-        existingIssue.setEstimatedTimes(updatedEstimates);
+            existingIssue.setEstimatedTimes(updatedEstimates);
 
-        // Uppdatera medelvärdet av uppskattade tider
-        int averageTime = updatedEstimates.stream()
-                .mapToInt(EstimatedTime::getTimeEstimate)
-                .filter(time -> time > 0)  
-                .sum() / Math.max(updatedEstimates.size(), 1);  
+            // Uppdatera medelvärdet av uppskattade tider
+            int averageTime = updatedEstimates.stream()
+                    .mapToInt(EstimatedTime::getTimeEstimate)
+                    .filter(time -> time > 0)
+                    .sum() / Math.max(updatedEstimates.size(), 1);
 
-        existingIssue.setAvarageEstTime(averageTime);
-        issueRepository.save(existingIssue);
-    } else {
-        throw new RuntimeException("Ingen uppskattad tid angiven");
-    }
+            existingIssue.setAvarageEstTime(averageTime);
+            issueRepository.save(existingIssue);
+        } else {
+            throw new RuntimeException("Ingen uppskattad tid angiven");
+        }
 
-    return updatedEstimates;
+        return updatedEstimates;
     }
 
     // uppdatera issues med den faktiska tiden
     public Issue actualTime(Issue issue, String issueId) {
 
-     Issue existingIssue = issueRepository.findById(issueId)
-            .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
+        Issue existingIssue = issueRepository.findById(issueId)
+                .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
 
-    existingIssue.setActualTime(issue.getActualTime());
+        existingIssue.setActualTime(issue.getActualTime());
 
-    issueRepository.save(existingIssue);
+        issueRepository.save(existingIssue);
 
-            
-    return existingIssue;
-   
+        return existingIssue;
+
     }
 
-    // hämta specifika issues 
+    // hämta specifika issues
     public Issue getIssueById(String issueId) {
 
         Issue getIssueById = issueRepository.findById(issueId).orElse(null);
-        
-    return getIssueById;
-   
+
+        return getIssueById;
+
+    }
+
+    // uppdatera status på issue
+    public Issue updateIssueStatus(String issueId) {
+        Issue existingIssue = issueRepository.findById(issueId)
+                .orElseThrow(() -> new RuntimeException("Issuet finns inte"));
+
+        if (existingIssue.getIssueStatus() == IssueStatus.ACTIVE) {
+            existingIssue.setIssueStatus(IssueStatus.DONE);
+        } else {
+            existingIssue.setIssueStatus(IssueStatus.ACTIVE);
+        }
+
+        return issueRepository.save(existingIssue);
     }
 
 }
