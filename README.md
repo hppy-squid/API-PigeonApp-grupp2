@@ -85,6 +85,8 @@ PigeonApp är APIet till ett grupprojekt byggt med Spring Boot och MongoDB för 
 
 Applikationen använder [java-dotenv](https://github.com/cdimascio/java-dotenv) för att läsa miljövariabler från `.env`-filen. Se till att ange `SPRING_DATA_MONGODB_URI` korrekt.
 
+Deploy : https://api-pigeonapp-grupp2.onrender.com/
+
 ## Kontakt
 
 Vid frågor, kontakta projektgruppen.
